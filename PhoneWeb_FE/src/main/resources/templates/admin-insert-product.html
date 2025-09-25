@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Thêm mặt hàng</title>
+
+	<!--Jquery.js-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous"
+		referrerpolicy="no-referrer"></script>
+	<!-- Add Popper.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+	<link href="/css/401.css" rel="stylesheet" />
+	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="/asset/js/scripts.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+		crossorigin="anonymous"></script>
+	<script src="/asset/js/datatables-simple-demo.js"></script>
+
+	<link rel="stylesheet" href="/css/signin.css">
+
+	<script src="/js/admin-insert-product.js"></script>
+	<script src="/js/admin-menu.js"></script>
+</head>
+
+<body class="sb-nav-fixed">
+
+	<!--Thanhmenu-->
+	<nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color: #cd1818;">
+		<!-- Navbar Brand-->
+		<a class="navbar-brand ps-3" href="/home">VnMobile</a>
+		<!-- Sidebar Toggle-->
+		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+				class="fas fa-bars"></i></button>
+		<!-- Navbar Search-->
+		<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+			<div class="input-group">
+				<input class="form-control-sm" type="text" placeholder="Bạn cần tìm gì?" aria-label="Search for..."
+					aria-describedby="btnNavbarSearch" />
+				<button class="btn btn-dark btn-sm" id="btnNavbarSearch" type="button"><i
+						class="fas fa-search"></i></button>
+			</div>
+		</form>
+		<!-- Navbar-->
+		<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle d-flex align-items-center" id="navbarDropdown" href="#" role="button"
+					data-bs-toggle="dropdown" aria-expanded="false">
+					<div class="avatar-container"
+						style="width: 30px; height: 30px; overflow: hidden; border-radius: 50%;">
+						<img id="userAvatar" class="avatar" style="width: 100%; height: auto; object-fit: cover;"
+							src="/img/avatar/me.jpg" alt="Avatar">
+					</div>
+					<span id="userfullName" class="ms-2 text-white">Hoàng Văn An</span>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+					<li><a class="dropdown-item" href="/profile"><i class="fa-solid fa-user"></i> Tài khoản</a></li>
+					<li><a class="dropdown-item" href="/notifycation"><i class="fa-solid fa-bell"></i> Thông báo</a>
+					</li>
+					<li>
+						<hr class="dropdown-divider" />
+					</li>
+					<li>
+						<a id="logoutUser" style="color: red;" class="dropdown-item" href="#!">
+							<i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	<!--End-->
+
+	<div id="layoutSidenav">
+
+		<!--Menu ngang-->
+		<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						<div class="sb-sidenav-menu-heading">Chính</div>
+						<a class="nav-link" href="/admin-dashboard">
+							<div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
+							Trang chính
+						</a>
+						<div class="sb-sidenav-menu-heading">Quản lí</div>
+						<a class="nav-link" href="/admin-product">
+							<div class="sb-nav-link-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+							Quản lí mặt hàng
+						</a>
+						<a class="nav-link" href="/admin-category">
+							<div class="sb-nav-link-icon"><i class="fa-solid fa-list"></i></div>
+							Quản lí danh mục
+						</a>
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+							data-bs-target="#collapseProducts" aria-expanded="false" aria-controls="collapsePages">
+							<div class="sb-nav-link-icon"><i class="fa-solid fa-warehouse"></i></div>
+							Quản lí kho hàng
+							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+						</a>
+						<div class="collapse" id="collapseProducts" aria-labelledby="headingOne"
+							data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">
+								<a class="nav-link" href="/admin-supplier">Nhập hàng</a>
+								<a class="nav-link" href="/admin-supplier-bill">Hóa đơn nhập hàng</a>
+							</nav>
+						</div>
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+							data-bs-target="#collapseAccount" aria-expanded="false" aria-controls="collapsePages">
+							<div class="sb-nav-link-icon"><i class="fa-solid fa-circle-user"></i></div>
+							Quản lí tài khoản
+							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+						</a>
+						<div class="collapse" id="collapseAccount" aria-labelledby="headingOne"
+							data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">
+								<a class="nav-link" href="/admin-account">Danh sách tài khoản</a>
+								<a class="nav-link" href="/404">Danh sách nhân viên</a>
+							</nav>
+						</div>
+						<a class="nav-link" href="/admin-order">
+							<div class="sb-nav-link-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+							Quản lí đơn hàng
+						</a>
+
+						<div class="sb-sidenav-menu-heading">BÁO CÁO</div>
+						<a class="nav-link" href="/admin-order-report">
+							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+							Thống kê đơn hàng
+						</a>
+						<a class="nav-link" href="/admin-product-report">
+							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+							Thống kê sản phẩm
+						</a>
+						<a class="nav-link" href="/admin-supplier-report">
+							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+							Thống kê nhập hàng
+						</a>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<!--end-->
+
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid px-4">
+					<h1 class="mt-4">Thêm mặt hàng</h1>
+					<ol class="breadcrumb mb-4">
+						<li class="breadcrumb-item"><a href="/admin-dashboard">Trang chính</a></li>
+						<li class="breadcrumb-item"><a href="/admin-product">Quản lí mặt hàng</a></li>
+						<li class="breadcrumb-item active">Thêm mặt hàng</li>
+					</ol>
+
+					<div class="col-12 mb-4">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="row">
+									<div class="form-group col-md-6 mb-3">
+										<label for="productTitle">Tên sản phẩm</label>
+										<input type="text" class="form-control" id="productTitle"
+											placeholder="Tên sản phẩm">
+										<small class="inputMess" style="color: red;" id="nameMessage"></small>
+									</div>
+									<div class="form-group col-md-6 mb-3">
+										<label for="productBasePrice">Giá cơ bản</label>
+										<input type="number" class="form-control" id="productBasePrice"
+											placeholder="Giá cơ bản">
+										<small class="inputMess" style="color: red;" id="priceMessage"></small>
+									</div>
+									<div class="form-group col-md-12 mb-3">
+										<label for="productDescription" class="form-label">Mô tả sản phẩm</label>
+										<textarea class="form-control" id="productDescription" rows="7"
+											placeholder="Mô tả"></textarea>
+										<small class="inputMess" style="color: red;" id="desMessage"></small>
+									</div>
+									<div class="form-group col-md-6 mb-3">
+										<label for="productCategory">Danh mục</label>
+										<select id="productCategory" class="form-control">
+											<option value="0" selected>--Choose--</option>
+											<option value="1">...</option>
+											<option value="2">...</option>
+										</select>
+										<small class="inputMess" style="color: red;" id="categoryMessage"></small>
+									</div>
+									<div class="form-group col-md-6 mb-3">
+										<label for="productSupplier">Nhà cung cấp</label>
+										<select id="productSupplier" class="form-control">
+											<option selected>--Choose--</option>
+											<option>...</option>
+										</select>
+										<small class="inputMess" style="color: red;" id="supplierMessage"></small>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="card mb-4">
+									<div class="card-header bg-danger text-white">
+										<i class="fas fa-table me-1"></i>
+										Thông số kĩ thuật
+									</div>
+									<div class="card-body" id="cardInfo">
+										<div class="row">
+											<div class="form-group col-md-6 mb-3">
+												<label for="productScreen">Màn hình</label>
+												<input type="text" class="form-control" id="productScreen"
+													placeholder="Màn hình">
+												<small class="inputMess" style="color: red;" id="nameMessage"></small>
+											</div>
+											<div class="form-group col-md-6 mb-3">
+												<label for="productFrontCamera">Camera trước</label>
+												<input type="text" class="form-control" id="productFrontCamera"
+													placeholder="Camera trước">
+												<small class="inputMess" style="color: red;" id="nameMessage"></small>
+											</div>
+											<div class="form-group col-md-6 mb-3">
+												<label for="productBackCamera">Camera sau</label>
+												<input type="text" class="form-control" id="productBackCamera"
+													placeholder="Camera sau">
+												<small class="inputMess" style="color: red;" id="nameMessage"></small>
+											</div>
+											<div class="form-group col-md-6 mb-3">
+												<label for="productCpu">Cpu</label>
+												<input type="text" class="form-control" id="productCpu"
+													placeholder="Cpu">
+												<small class="inputMess" style="color: red;" id="nameMessage"></small>
+											</div>
+											<div class="form-group col-md-6 mb-3">
+												<label for="productGpu">Gpu</label>
+												<input type="text" class="form-control" id="productGpu"
+													placeholder="Gpu">
+												<small class="inputMess" style="color: red;" id="nameMessage"></small>
+											</div>
+											<div class="form-group col-md-6 mb-3">
+												<label for="productOperatingSystem">Hệ điều hành</label>
+												<input type="text" class="form-control" id="productOperatingSystem"
+													placeholder="Hệ điều hành">
+												<small class="inputMess" style="color: red;" id="nameMessage"></small>
+											</div>
+											<div class="form-group col-md-6 mb-3">
+												<label for="productBattery">Dung lượng pin</label>
+												<input type="text" class="form-control" id="productBattery"
+													placeholder="Dung lượng pin">
+												<small class="inputMess" style="color: red;" id="nameMessage"></small>
+											</div>
+											<div class="form-group col-md-6 mb-3">
+												<label for="productWeight">Trọng lượng</label>
+												<input type="number" class="form-control" id="productWeight"
+													placeholder="Trọng lượng">
+												<small class="inputMess" style="color: red;" id="nameMessage"></small>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="col-12">
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<div class="form-group">
+											<label for="productThumbail">Ảnh chính sản phẩm:</label>
+											<input id="productThumbail" type="file" accept="image/*"
+												class="form-control" required>
+											<small class="inputMess" style="color: red;" id="thumbnailMessage"></small>
+										</div>
+										<div class="mt-3 mb-3 d-flex">
+											<div>
+												<div class="avatar-container"
+													style="width: 150px; height: 150px; overflow: hidden;">
+													<img id="thumbnailImg" class="avatar"
+														style="width: 100%; height: 100%; object-fit: cover;"
+														src="https://via.placeholder.com/300x300?text=300x300"
+														alt="Avatar">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6 mb-3">
+										<div class="form-group">
+											<label for="plusThumbail">Ảnh phụ sản phẩm:</label>
+											<input id="plusThumbail" type="file" accept="image/*" class="form-control"
+												multiple required>
+											<small class="inputMess" style="color: red;"
+												id="plusThumbnailMessage"></small>
+										</div>
+										<div id="listPlusthumbnail" class="mt-3 mb-3 d-flex">
+											<div class="avatar-container me-2"
+												style="width: 150px; height: 150px; overflow: hidden;">
+												<img id="plusImg" class="avatar"
+													style="width: 100%; height: 100%; object-fit: cover;"
+													src="https://via.placeholder.com/300x300?text=300x300" alt="Avatar">
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-12">
+						<div class="row">
+							<div class="card col-md-8 mb-4" style="border: none;">
+								<div class="card-header bg-danger text-white">
+									<i class="fas fa-table me-1"></i>
+									Danh sách các phiên bản
+								</div>
+								<div id="cardType" class="card-body" style="border: 1px solid #CCC;">
+									<div class="row">
+										<div class="form-group col-sm-2 mb-3 mt-3">
+											<label for="productRam">Ram</label>
+											<input type="number" class="form-control" id="productRam" placeholder="Ram">
+											<small style="color: red;" id="ramMessage"></small>
+										</div>
+										<div class="form-group col-sm-2 mb-3 mt-3">
+											<label for="productRom">Rom</label>
+											<input type="number" class="form-control" id="productRom" placeholder="Rom">
+											<small style="color: red;" id="roomMessage"></small>
+										</div>
+										<div class="form-group col-sm-2 mb-3 mt-3">
+											<label for="productBasePrice">Giá nhập</label>
+											<input type="number" class="form-control" id="productbasePrice"
+												placeholder="Giá nhập">
+											<small style="color: red;" id="basePriceMessage"></small>
+										</div>
+										<div class="form-group col-sm-2 mb-3 mt-3">
+											<label for="productPrice">Giá bán</label>
+											<input type="number" class="form-control" id="productPrice"
+												placeholder="Giá bán">
+											<small style="color: red;" id="priceMessage"></small>
+										</div>
+										<div class="form-group col-sm-2 mb-3 mt-3">
+											<label for="productDiscount">Discount</label>
+											<input type="number" class="form-control" id="productDiscount"
+												placeholder="Discount">
+											<small style="color: red;" id="discountMessage"></small>
+										</div>
+										<div>
+											<button id="createProductType"
+												class="btn btn-success btn-sm col-sm-3 mb-3">Thêm phiên
+												bản</button>
+										</div>
+										<div class="table-responsive" style="max-height: 400px;">
+											<table class="table table-bordered table-hover">
+												<thead>
+													<tr>
+														<th scope="col">#</th>
+														<th scope="col">Ram</th>
+														<th scope="col">Rom</th>
+														<th scope="col">Giá nhập</th>
+														<th scope="col">Giá bán</th>
+														<th scope="col">Discount</th>
+														<th scope="col"></th>
+													</tr>
+												</thead>
+												<tbody id="typeTableBody">
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="card col-md-4 mb-4" style="border: none;">
+								<div class="card-header bg-danger text-white">
+									<i class="fas fa-table me-1"></i>
+									Danh sách màu sắc phiên bản
+								</div>
+								<div id="cardColor" class="card-body" style="border: 1px solid #CCC;">
+									<h4 id="versionTypeColor">Chưa chọn phiên bản</h4>
+									<div class="row">
+										<div class="form-group col-sm-6 mb-3 mt-3">
+											<label for="productColor">Màu sắc</label>
+											<input type="text" class="form-control" id="productColor"
+												placeholder="Màu sắc">
+											<small style="color: red;" id="colorMessage"></small>
+										</div>
+										<div class="form-group col-sm-6 mb-3 mt-3">
+											<label for="productInventory">Tồn kho</label>
+											<input type="number" class="form-control" id="productInventory"
+												placeholder="Tồn kho">
+											<small style="color: red;" id="inventoryMessage"></small>
+										</div>
+										<div>
+											<button id="createColorType"
+												class="btn btn-success btn-sm col-sm-6 mb-3">Thêm
+												màu phiên bản</button>
+										</div>
+										<div class="table-responsive" style="max-height: 400px;">
+											<table class="table table-bordered table-hover">
+												<thead>
+													<tr>
+														<th scope="col">#</th>
+														<th scope="col">Màu sắc</th>
+														<th scope="col">Tồn kho</th>
+														<th scope="col"></th>
+													</tr>
+												</thead>
+												<tbody id="colorBody">
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 mt-4 d-flex justify-content-center">
+						<button id="cancelInsertProduct" class="btn btn-lg btn-secondary col-5">Hủy</button>
+						<button id="submitInsertProduct" class="btn btn-lg btn-success col-5 ms-3">Thêm mặt
+							hàng</button>
+					</div>
+			</main>
+
+			<!--Overlay-->
+			<div id="overlay" class="overlay">
+				<div id="loadingSpinner" class="loading-spinner spinner-border text-primary" role="status">
+					<!--<i class="fas fa-spinner fa-spin"></i>-->
+					<span class="sr-only">Loading...</span>
+				</div> <span style="color: white; margin-left: 5px;"> Loading...</span>
+			</div>
+			<!--End-->
+
+			<!-- success Modal -->
+			<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog modal-md">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div class="col-12 d-flex">
+								<div class="mb-2" id="confirmIcon">
+									<i style="color: green; font-size: 2em;" class="fa-solid fa-circle-check"></i>
+								</div>
+								<div class="mb-3 ms-3">
+									<strong>
+										<p>Thành công!</p>
+									</strong>
+									<p>Thêm sản phẩm thành công, bạn có muốn thêm tiếp không?</p>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button id="dismissBtn" data-bs-dismiss="modal"
+								class="btn btn-secondary col-sm-3">Hủy</button>
+							<button id="confirmBtn" class="btn btn-success col-sm-3">Xác nhận</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modal them Type-->
+			<div class="modal fade" id="insertTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Thêm phiên bản</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div>
+								<div class="mb-3">
+									<label for="category-name" class="col-form-label">Ram:</label>
+									<input type="text" class="form-control" id="product-ram" placeholder="Ram">
+									<small style="color: red;" id="nameMessage"></small>
+								</div>
+								<div class="mb-3">
+									<label for="category-image" class="col-form-label">Rom:</label>
+									<input type="file" class="form-control" id="product-rom" placeholder="Rom">
+									<small style="color: red;" id="imageMessage"></small>
+								</div>
+								<div class="mb-3">
+									<label for="category-image" class="col-form-label">Giá nhập:</label>
+									<input type="file" class="form-control" id="product-baseprice"
+										placeholder="Giá nhập">
+									<small style="color: red;" id="imageMessage"></small>
+								</div>
+								<div class="mb-3">
+									<label for="category-image" class="col-form-label">Giá bán:</label>
+									<input type="file" class="form-control" id="product-price" placeholder="Giá bán">
+									<small style="color: red;" id="imageMessage"></small>
+								</div>
+								<div class="mb-3">
+									<label for="category-image" class="col-form-label">Discount:</label>
+									<input type="file" class="form-control" id="product-discount"
+										placeholder="Discount">
+									<small style="color: red;" id="imageMessage"></small>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer d-flex">
+							<button class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+							<button id="submitInsertCategory" class="btn btn-primary ml-auto">Thêm mới</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--Lock Account Modal-->
+			<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog modal-md">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div class="col-12 d-flex">
+								<div class="mb-2">
+									<i style="color: red; font-size: 2em;" class="fa-solid fa-circle-info"></i>
+								</div>
+								<div class="mb-3 ms-3">
+									<p><strong>Thiếu thông tin</strong></p>
+									<p id="errorMess">Bạn nhập thiếu thông tin sản phẩm, vui lòng kiểm tra lại!</p>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button id="confirmErrorBtn" data-bs-dismiss="modal" class="btn btn-danger">Xác
+								nhận</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<footer class="py-4 bg-light mt-auto">
+				<div class="container-fluid px-4">
+					<div class="d-flex align-items-center justify-content-between small">
+						<div class="text-muted">Created By Hoàng Văn An 2023</div>
+						<div>
+							<a href="#">Privacy Policy</a>
+							&middot;
+							<a href="#">Terms &amp; Conditions</a>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+</body>
+
+</html>
+<style>
+	.my-border {
+		border-radius: 2%;
+		box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+	}
+</style>
